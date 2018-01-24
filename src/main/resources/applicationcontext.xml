@@ -3,4 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--&lt;!&ndash;属性文件定位配置&ndash;&gt;-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>jdbc.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;数据源配置&ndash;&gt;-->
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="${mysql.driverClassName}"/>-->
+        <!--<property name="url" value="${mysql.url}"/>-->
+        <!--<property name="username" value="${mysql.username}"/>-->
+        <!--<property name="password" value="${mysql.password}"/>-->
+    <!--</bean>-->
 </beans>
