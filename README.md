@@ -8,7 +8,7 @@
 		2. 不规范命名2-映射名：**/htmlviewresolver/hellojsp**
 - 因为水平有限，有些内容可能存在错误，敬请指教。
 
-##目录
+## 目录
 
 - [Spring MVC代码实例系列-01：Spring MVC项目简单搭建与Hello Wolrd](http://blog.csdn.net/hanchao5272/article/details/79052358)
 - [Spring MVC代码实例系列-02：重定向redirect及传参、编码过滤器](http://blog.csdn.net/hanchao5272/article/details/79053688)
