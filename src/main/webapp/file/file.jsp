@@ -43,10 +43,13 @@
 </div>
 <hr/>
 <div style="width: 600px;">
-    <a href="/file/download/5/jpg/inline">下载5.jpg</a><hr/>
-    <a href="/file/download/11/xml/inline">下载11.xml</a>
+    <a href="/file/download/5/jpg/inline">显示5.jpg</a><hr/>
+    <a href="/file/download/11/xml/inline">显示11.xml</a><hr/>
+    <a href="/file/download/1/txt/inline">显示1.txt</a><hr/>
     <a href="/file/download/5/jpg/attachment">下载5.jpg</a><hr/>
-    <a href="/file/download/11/xml/attachment">下载11.xml</a>
+    <a href="/file/download/11/xml/attachment">下载11.xml</a><hr/>
+    <a href="/file/download/1/txt/attachment">下载1.txt</a>
+
 </div>
 </body>
 </html>

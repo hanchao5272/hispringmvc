@@ -1,6 +1,7 @@
 package pers.hanchao.hespringmvc.file;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -14,11 +15,17 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+/**
+ * <p>简单的文件上传和下载实例，
+ * 文件上传实现了两种方式的上传：流和MultiPartFile；
+ * 文件下载实现了两种方式的下载：inline和attachment</p>
+ * @author hanchao 2018/1/24 22:35
+ **/
+@Component
 @RequestMapping("file")
-public class FileController {
+public class FileUtils {
 
-    private static final Logger LOGGER = Logger.getLogger(FileController.class);
+    private static final Logger LOGGER = Logger.getLogger(FileUtils.class);
 
     /**
      * <p>上传文件的两种方式：流上传和Multipart上传</p>
@@ -57,10 +64,17 @@ public class FileController {
         return "/file/file";
     }
 
+    /**
+     * <p>下载</p>
+     * @param fileName 文件名
+     * @param suffix 文件后缀
+     * @param type 下载方式：inline[浏览器内显示]、attachment[下载]
+     * @author hanchao 2018/1/24 22:08
+     **/
     @GetMapping("/download/{name}/{suffix}/{type}")
-    public String download(HttpServletRequest request,HttpServletResponse response,
+    public void download(HttpServletRequest request,HttpServletResponse response,
                            @PathVariable("name") String fileName,@PathVariable("suffix") String suffix,
-                           @PathVariable("type") String type,Model model){
+                           @PathVariable("type") String type, Model model){
         File uploadRootDir = new File(request.getServletContext().getRealPath("upload"));
         File file = new File(uploadRootDir.getAbsolutePath() + File.separator + fileName + "." + suffix);
         if (!file.exists()){
@@ -75,22 +89,32 @@ public class FileController {
             LOGGER.debug("mimeType:" + mimeType);
             response.setContentType(mimeType);
             //设置如何显示附加的文件 inline attachment @TODO
-            response.setHeader("Content-Disposition",String.format(type + ":filename=\"" + file.getName()) + "\"");
+            response.setHeader("Content-Disposition",String.format(type + ";filename=\"" + file.getName()) + "\"");
             //设置长度
             response.setContentLength((int) file.length());
 
+            InputStream inputStream = null;
             try {
-                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                inputStream = new BufferedInputStream(new FileInputStream(file));
                 FileCopyUtils.copy(inputStream,response.getOutputStream());
+                inputStream.close();
+                response.getOutputStream().close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 LOGGER.error("下载文件失败");
             } catch (IOException e) {
                 e.printStackTrace();
                 LOGGER.error("下载文件失败");
+            } finally {
+                try {
+                    inputStream.close();
+                    response.getOutputStream().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    LOGGER.error("下载文件失败");
+                }
             }
         }
-        return "/file/file";
     }
 
     /**
