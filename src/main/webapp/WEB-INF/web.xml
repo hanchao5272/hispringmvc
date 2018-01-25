@@ -18,6 +18,17 @@
     </init-param>
   </filter>
 
+  <!--request body数据包装器，是的request的body数据能够多次被读取-->
+  <filter>
+    <filter-name>requestBodyWrapperFilter</filter-name>
+    <filter-class>pers.hanchao.hespringmvc.interceptors.filter.RequestBodyWrapperFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>requestBodyWrapperFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <filter-mapping>
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -48,7 +59,7 @@
   
   <!--欢迎页面-->
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
 
