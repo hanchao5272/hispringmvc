@@ -2,7 +2,6 @@ package pers.hanchao.hespringmvc.file;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -51,13 +50,18 @@ public class FileUtils {
                 isSuccess = false;
                 break;
             }
+            /*
+            两种上传方式
+            1.saveFileByStream通过原生的BufferedOutputStream将将文件保存在服务器
+            2.saveFileByMultiPartFile通过MultiPartFile.transferTo()将文件保存
+             */
             File savedFile = saveFileByStream(file, uploadRootDir);
 //            File savedFile = saveFileByMultiPartFile(file, uploadRootDir);
             savedFileList.add(savedFile);
         }
         if (!isSuccess){
             model.addAttribute("returnMessage","文件太大，禁止上传！");
-            System.out.println("文件太大，禁止上传！");
+            LOGGER.error("文件太大，禁止上传！");
         }else {
             model.addAttribute("savedFileList",savedFileList);
         }
@@ -75,7 +79,9 @@ public class FileUtils {
     public void download(HttpServletRequest request,HttpServletResponse response,
                            @PathVariable("name") String fileName,@PathVariable("suffix") String suffix,
                            @PathVariable("type") String type, Model model){
+        //获取根目录路径
         File uploadRootDir = new File(request.getServletContext().getRealPath("upload"));
+        //获取目标文件
         File file = new File(uploadRootDir.getAbsolutePath() + File.separator + fileName + "." + suffix);
         if (!file.exists()){
             model.addAttribute("returnMessage","文件不存在！");
@@ -87,12 +93,18 @@ public class FileUtils {
                 mimeType = "application/octet-stream";
             }
             LOGGER.debug("mimeType:" + mimeType);
+            //设置contentType
             response.setContentType(mimeType);
-            //设置如何显示附加的文件 inline attachment @TODO
-            response.setHeader("Content-Disposition",String.format(type + ";filename=\"" + file.getName()) + "\"");
+            /*
+            设置文件下载方式：
+            1.inline：浏览器内打开此文件（如txt、xml等），不能打开的再下载（如rar等）
+            2.attachment：下载文件到本地
+             */
+            response.setHeader("Content-Disposition",type + ";filename=\"" + file.getName() + "\"");
             //设置长度
             response.setContentLength((int) file.length());
 
+            //下载文件
             InputStream inputStream = null;
             try {
                 inputStream = new BufferedInputStream(new FileInputStream(file));

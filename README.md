@@ -1,11 +1,12 @@
 # Spring MVC实例
+CSDN专栏：[Spring MVC学习实例](https://blog.csdn.net/column/details/20008.html)
+
+-------------
+
 最近抽空将Spring MVC涉及到的一些技术进行了复习，并写了一些入门实例，将源代码整理到这里，作为以后翻阅的记录。
 
 说明：
 - 因为时间有限，文章内容可能存在错别字等现象，敬请谅解。
-- 为了展示各知识点，有些命名方式很不规范，敬请谅解。
-		1. 不规范命名1-包名：pers.hanchao.**springmvc**.**htmlviewresolver**
-		2. 不规范命名2-映射名：**/htmlviewresolver/hellojsp**
 - 因为水平有限，有些内容可能存在错误，敬请指教。
 
 ## 目录

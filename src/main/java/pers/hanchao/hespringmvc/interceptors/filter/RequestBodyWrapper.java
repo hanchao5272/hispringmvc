@@ -69,6 +69,10 @@ public class RequestBodyWrapper extends HttpServletRequestWrapper {
         };
     }
 
+    /**
+     * <p>重写getReader方法，调用getInputStream，将byte[]数组转换成BufferedReader</p>
+     * @author hanchao 2018/1/26 14:54
+     **/
     @Override
     public BufferedReader getReader(){
         return new BufferedReader(new InputStreamReader(getInputStream()));

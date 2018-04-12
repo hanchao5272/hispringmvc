@@ -19,6 +19,7 @@
     <h3>文件上传和下载实例</h3>
 </div>
 <div style="width: 290px;height: 180px;float: left;">
+    <%--一定要注意设置enctype="multipart/form-data"--%>
     <form method="post" action="/file/upload" enctype="multipart/form-data">
         <label>单个文件上传</label><hr/>
         <input type="file" name="file"/><hr/>
@@ -26,8 +27,10 @@
     </form>
 </div>
 <div style="width: 290px;height: 180px;float: left">
+    <%--一定要注意设置enctype="multipart/form-data"--%>
     <form method="post" action="/file/upload" enctype="multipart/form-data">
         <label>多个文件上传</label><hr/>
+        <%--一定要注意name="file"要与后台传参对应--%>
         <input type="file" name="file"/><br/>
         <input type="file" name="file"/><br/>
         <input type="file" name="file"/><br/>
@@ -41,15 +44,18 @@
         <small><hr/>已上传：${file} </small>
     </c:forEach>
 </div>
-<hr/>
 <div style="width: 600px;">
-    <a href="/file/download/5/jpg/inline">显示5.jpg</a><hr/>
-    <a href="/file/download/11/xml/inline">显示11.xml</a><hr/>
-    <a href="/file/download/1/txt/inline">显示1.txt</a><hr/>
+    <label>文件下载</label><hr/>
+    <a href="/file/download/5/jpg/inline">在浏览器打开5.jpg</a><hr/>
+    <a href="/file/download/11/xml/inline">在浏览器打开11.xml</a><hr/>
+    <a href="/file/download/1/txt/inline">在浏览器打开1.txt</a><hr/>
     <a href="/file/download/5/jpg/attachment">下载5.jpg</a><hr/>
     <a href="/file/download/11/xml/attachment">下载11.xml</a><hr/>
     <a href="/file/download/1/txt/attachment">下载1.txt</a>
+</div>
+<div>
 
 </div>
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 package pers.hanchao.hespringmvc.interceptors.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import pers.hanchao.hespringmvc.interceptors.JsonResult;
 
@@ -34,13 +33,13 @@ public class SessionCheckHandlerInterceptor extends HandlerInterceptorAdapter {
                 pw.write(jsonStr);
                 pw.flush();
                 pw.close();
-                //拦截器返回false，停止对其他拦截器的拦截
+                //方法返回false，表示流程终止，不会再调用其他拦截器
                 return false;
             }else {//如果是普通请求，直接重定向至登录页面即可。
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
             }
         }
+        //方法返回true，表示流程继续，继续调用其他拦截器
         return true;
     }
-
 }
